@@ -3,13 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="古风资讯 - 个性化新闻聚合平台，每日实时更新">
+  <meta name="theme-color" content="#8B4513">
   <title>📜 每日要闻 - 古风资讯</title>
+  
+  <!-- 性能优化：预加载关键资源 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700&display=swap');
 
+    /* ========================================
+       设计系统 - UI/UX Pro Max 标准
+       ======================================== */
     :root {
+      /* 色彩系统 - 新中式古风 */
       --primary: #8B4513;
       --primary-dark: #5D2E0C;
+      --primary-light: #A0522D;
       --accent: #C41E3A;
       --bg: #F5E6D3;
       --bg-dark: #E8D5C4;
@@ -17,22 +29,96 @@
       --ink: #2C2C2C;
       --ink-light: #5A5A5A;
       --gold: #B8860B;
+      --gold-light: #DAA520;
       --border: #8B7355;
+      
+      /* 语义化颜色 */
+      --success: #2E7D32;
+      --warning: #F57C00;
+      --error: #C62828;
+      
+      /* 间距系统 - 4px 基准 */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      
+      /* 排版系统 */
+      --font-serif: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+      --font-display: 'Ma Shan Zheng', cursive;
+      
+      /* 阴影系统 */
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.16);
+      --shadow-xl: 0 12px 40px rgba(0,0,0,0.2);
+      
+      /* 圆角系统 */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      
+      /* 动效系统 */
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* ========================================
+       基础样式 - 无障碍优化
+       ======================================== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
     body {
-      font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+      font-family: var(--font-serif);
       background: var(--bg);
-      background-image: 
-        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B4513' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B4513' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       color: var(--ink);
       line-height: 1.8;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* 云纹装饰 */
+    /* 焦点可见性 - 无障碍 */
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    /* 跳过导航链接 - 无障碍 */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: var(--paper);
+      padding: var(--space-3) var(--space-5);
+      z-index: 9999;
+      transition: top var(--transition-fast);
+    }
+
+    .skip-link:focus {
+      top: var(--space-2);
+    }
+
+    /* ========================================
+       装饰元素 - 性能优化（GPU 加速）
+       ======================================== */
     body::before {
       content: '';
       position: fixed;
@@ -44,17 +130,34 @@
       opacity: 0.3;
       pointer-events: none;
       z-index: 1000;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
-    /* Header - 牌匾风格 */
+    .ink-blot {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(139,69,19,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    /* ========================================
+       Header - 牌匾风格
+       ======================================== */
     header {
       background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
-      padding: 25px 20px;
+      padding: var(--space-6) var(--space-5);
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow-lg);
       border-bottom: 3px solid var(--gold);
+      will-change: transform;
     }
 
     .header-content {
@@ -64,21 +167,27 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: var(--space-4);
     }
 
     .logo {
-      font-family: 'Ma Shan Zheng', cursive;
+      font-family: var(--font-display);
       font-size: 32px;
       color: var(--paper);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: var(--space-3);
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      padding: 10px 20px;
+      padding: var(--space-3) var(--space-5);
       background: rgba(0,0,0,0.2);
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       border: 2px solid var(--gold);
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .logo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
 
     .logo::before {
@@ -86,55 +195,72 @@
       font-size: 36px;
     }
 
+    /* ========================================
+       控件 - 触摸友好优化
+       ======================================== */
     .controls {
       display: flex;
-      gap: 12px;
+      gap: var(--space-3);
       flex-wrap: wrap;
     }
 
-    .controls select, .controls button {
-      padding: 10px 20px;
+    .controls select,
+    .controls button {
+      padding: var(--space-3) var(--space-5);
       border: 2px solid var(--gold);
-      border-radius: 4px;
+      border-radius: var(--radius-sm);
       font-size: 14px;
       font-family: inherit;
       cursor: pointer;
       background: var(--paper);
       color: var(--primary);
-      transition: all 0.3s;
+      transition: all var(--transition-base);
       font-weight: 600;
+      min-height: 44px; /* 触摸友好 */
+      min-width: 44px;
     }
 
-    .controls select:hover, .controls button:hover {
+    .controls select:hover,
+    .controls button:hover {
       background: var(--gold);
       color: var(--paper);
       transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
-    /* Main */
+    .controls select:active,
+    .controls button:active {
+      transform: translateY(0);
+    }
+
+    /* ========================================
+       Main Content
+       ======================================== */
     main {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 30px 20px;
+      padding: var(--space-8) var(--space-5);
+      position: relative;
+      z-index: 1;
     }
 
     /* 卷轴标题 */
     .scroll-title {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: var(--space-8);
       position: relative;
     }
 
     .scroll-title h2 {
-      font-family: 'Ma Shan Zheng', cursive;
+      font-family: var(--font-display);
       font-size: 28px;
       color: var(--primary);
       display: inline-block;
-      padding: 15px 40px;
+      padding: var(--space-4) var(--space-10);
       background: var(--paper);
       border: 3px solid var(--primary);
-      border-radius: 4px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md);
     }
 
     .scroll-title::before,
@@ -150,32 +276,35 @@
     .scroll-title::before { left: 0; }
     .scroll-title::after { right: 0; transform: scaleX(-1); }
 
-    /* Category Tabs - 书签风格 */
+    /* ========================================
+       Category Tabs - 书签风格
+       ======================================== */
     .category-tabs {
       display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
       flex-wrap: wrap;
       justify-content: center;
-      padding: 20px;
+      padding: var(--space-5);
       background: var(--paper);
       border: 2px solid var(--border);
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
     }
 
     .category-tab {
-      padding: 10px 25px;
+      padding: var(--space-3) var(--space-6);
       border: 2px solid var(--border);
-      border-radius: 4px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all var(--transition-base);
       background: transparent;
       font-size: 15px;
       font-family: inherit;
       color: var(--ink);
       position: relative;
       overflow: hidden;
+      min-height: 44px;
     }
 
     .category-tab::before {
@@ -186,7 +315,7 @@
       width: 100%;
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(139,69,19,0.2), transparent);
-      transition: left 0.5s;
+      transition: left var(--transition-slow);
     }
 
     .category-tab:hover::before {
@@ -197,31 +326,39 @@
       border-color: var(--primary);
       color: var(--primary);
       transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
     }
 
     .category-tab.active {
       background: var(--primary);
       border-color: var(--primary);
       color: var(--paper);
-      box-shadow: 0 4px 10px rgba(139,69,19,0.3);
+      box-shadow: var(--shadow-md);
     }
 
-    /* News Grid - 奏折风格 */
+    /* ========================================
+       News Grid - 响应式布局
+       ======================================== */
     .news-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: var(--space-6);
     }
 
+    /* ========================================
+       News Card - 奏折风格
+       ======================================== */
     .news-card {
       background: var(--paper);
-      border-radius: 8px;
+      border-radius: var(--radius-md);
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.12);
-      transition: all 0.4s ease;
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-base);
       cursor: pointer;
       border: 1px solid var(--border);
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     .news-card::before {
@@ -235,9 +372,14 @@
     }
 
     .news-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(139,69,19,0.25);
-      border-color: var(--gold);
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--gold-light);
+    }
+
+    .news-card:focus-within {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
     }
 
     .news-card img {
@@ -246,7 +388,8 @@
       object-fit: cover;
       background: var(--bg-dark);
       filter: sepia(20%) contrast(95%);
-      transition: filter 0.3s;
+      transition: filter var(--transition-base);
+      loading: lazy;
     }
 
     .news-card:hover img {
@@ -254,43 +397,48 @@
     }
 
     .news-card .content {
-      padding: 20px;
+      padding: var(--space-5);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .news-card .category {
       display: inline-block;
-      padding: 5px 15px;
+      padding: var(--space-2) var(--space-4);
       background: var(--primary);
       color: var(--paper);
       border-radius: 20px;
       font-size: 12px;
-      margin-bottom: 12px;
+      margin-bottom: var(--space-3);
       font-weight: 600;
       border: 1px solid var(--gold);
+      align-self: flex-start;
     }
 
     .news-card .title {
       font-size: 17px;
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: var(--space-3);
       line-height: 1.5;
       color: var(--ink);
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      font-family: 'Noto Serif SC', serif;
+      flex-shrink: 0;
     }
 
     .news-card .desc {
       font-size: 14px;
       color: var(--ink-light);
-      margin-bottom: 15px;
+      margin-bottom: var(--space-4);
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
       line-height: 1.7;
+      flex: 1;
     }
 
     .news-card .meta {
@@ -299,50 +447,49 @@
       align-items: center;
       font-size: 12px;
       color: var(--ink-light);
-      padding-top: 15px;
+      padding-top: var(--space-4);
       border-top: 1px dashed var(--border);
+      flex-shrink: 0;
     }
 
-    .news-card .source {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-weight: 600;
-    }
-
+    .news-card .source,
     .news-card .time {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: var(--space-1);
+      font-weight: 600;
     }
 
     /* 角花装饰 */
     .news-card .corner {
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: 24px;
+      height: 24px;
       border: 2px solid var(--gold);
       opacity: 0.5;
+      pointer-events: none;
     }
 
     .news-card .corner-tl {
-      top: 10px;
-      left: 10px;
+      top: var(--space-3);
+      left: var(--space-3);
       border-right: none;
       border-bottom: none;
     }
 
     .news-card .corner-br {
-      bottom: 10px;
-      right: 10px;
+      bottom: var(--space-3);
+      right: var(--space-3);
       border-left: none;
       border-top: none;
     }
 
-    /* Loading */
+    /* ========================================
+       Loading & Error States
+       ======================================== */
     .loading {
       text-align: center;
-      padding: 60px 20px;
+      padding: var(--space-16) var(--space-5);
       color: var(--ink-light);
       font-size: 16px;
     }
@@ -351,7 +498,7 @@
       content: '📜';
       display: block;
       font-size: 48px;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-5);
       animation: rotate 3s linear infinite;
     }
 
@@ -359,21 +506,34 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Error */
     .error {
       text-align: center;
-      padding: 60px 20px;
-      color: var(--accent);
+      padding: var(--space-16) var(--space-5);
+      color: var(--error);
       font-size: 16px;
     }
 
-    /* Footer - 卷轴风格 */
+    .error button {
+      margin-top: var(--space-4);
+      padding: var(--space-3) var(--space-6);
+      cursor: pointer;
+      background: var(--primary);
+      color: var(--paper);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      min-height: 44px;
+    }
+
+    /* ========================================
+       Footer - 卷轴风格
+       ======================================== */
     footer {
       text-align: center;
-      padding: 40px;
+      padding: var(--space-10) var(--space-5);
       color: var(--ink-light);
       font-size: 14px;
-      margin-top: 50px;
+      margin-top: var(--space-16);
       background: var(--paper);
       border-top: 3px solid var(--gold);
       position: relative;
@@ -384,24 +544,30 @@
       display: block;
       font-size: 24px;
       color: var(--gold);
-      margin-bottom: 10px;
+      margin-bottom: var(--space-3);
     }
 
-    /* 印章效果 */
     .seal {
       display: inline-block;
-      padding: 8px 15px;
+      padding: var(--space-2) var(--space-4);
       background: var(--accent);
-      color: white;
-      border-radius: 4px;
+      color: var(--paper);
+      border-radius: var(--radius-sm);
       font-size: 12px;
       font-weight: bold;
       border: 2px solid var(--accent);
-      box-shadow: 0 2px 8px rgba(196,30,58,0.3);
+      box-shadow: var(--shadow-sm);
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
+    /* ========================================
+       响应式断点 - Mobile First
+       ======================================== */
+    @media (max-width: 767px) {
+      :root {
+        --space-8: 24px;
+        --space-10: 32px;
+      }
+
       .header-content {
         flex-direction: column;
         align-items: center;
@@ -419,30 +585,74 @@
       .category-tabs {
         overflow-x: auto;
         justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .scroll-title h2 {
+        font-size: 24px;
+        padding: var(--space-3) var(--space-6);
+      }
+
+      .scroll-title::before,
+      .scroll-title::after {
+        width: 50px;
       }
     }
 
-    /* 墨迹晕染效果 */
-    .ink-blot {
-      position: fixed;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(139,69,19,0.05) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .news-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* ========================================
+       减少运动偏好 - 无障碍
+       ======================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ========================================
+       打印样式
+       ======================================== */
+    @media print {
+      header, .controls, .category-tabs, footer {
+        display: none;
+      }
+
+      .news-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #000;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- 无障碍：跳过导航 -->
+  <a href="#main-content" class="skip-link">跳到主要内容</a>
+
+  <!-- 装饰元素 -->
   <div class="ink-blot" style="top: 10%; left: 5%;"></div>
   <div class="ink-blot" style="bottom: 20%; right: 10%;"></div>
 
-  <header>
+  <!-- 语义化 Header -->
+  <header role="banner">
     <div class="header-content">
-      <div class="logo">每日要闻</div>
-      <div class="controls">
-        <select id="sourceSelect" onchange="changeSource()">
+      <h1 class="logo" aria-label="每日要闻">每日要闻</h1>
+      <div class="controls" role="group" aria-label="新闻控制选项">
+        <label for="sourceSelect" class="visually-hidden">选择新闻源</label>
+        <select id="sourceSelect" onchange="changeSource()" aria-label="选择新闻来源">
           <option value="all">📰 全部来源</option>
           <option value="sina">🔴 新浪新闻</option>
           <option value="163">🔵 网易新闻</option>
@@ -450,38 +660,47 @@
           <option value="36kr">🟡 36Kr</option>
           <option value="hacker">💻 Hacker News</option>
         </select>
-        <button onclick="loadNews()">🔄 刷新</button>
+        <button onclick="loadNews()" aria-label="刷新新闻">🔄 刷新</button>
       </div>
     </div>
   </header>
 
-  <main>
-    <div class="scroll-title">
-      <h2>📜 今日头条</h2>
-    </div>
+  <!-- 语义化 Main -->
+  <main id="main-content" role="main">
+    <section class="scroll-title" aria-labelledby="section-title">
+      <h2 id="section-title">📜 今日头条</h2>
+    </section>
 
-    <div class="category-tabs">
-      <button class="category-tab active" data-category="all">全部</button>
-      <button class="category-tab" data-category="tech">科技</button>
-      <button class="category-tab" data-category="finance">财经</button>
-      <button class="category-tab" data-category="world">国际</button>
-      <button class="category-tab" data-category="sports">体育</button>
-      <button class="category-tab" data-category="entertainment">娱乐</button>
-    </div>
+    <!-- 分类导航 -->
+    <nav class="category-tabs" role="tablist" aria-label="新闻分类">
+      <button class="category-tab active" data-category="all" role="tab" aria-selected="true">全部</button>
+      <button class="category-tab" data-category="tech" role="tab" aria-selected="false">科技</button>
+      <button class="category-tab" data-category="finance" role="tab" aria-selected="false">财经</button>
+      <button class="category-tab" data-category="world" role="tab" aria-selected="false">国际</button>
+      <button class="category-tab" data-category="sports" role="tab" aria-selected="false">体育</button>
+      <button class="category-tab" data-category="entertainment" role="tab" aria-selected="false">娱乐</button>
+    </nav>
 
-    <div id="news" class="news-grid">
-      <div class="loading">正在加载要闻...</div>
-    </div>
+    <!-- 新闻列表 -->
+    <section id="news" class="news-grid" role="feed" aria-label="新闻列表" aria-busy="true">
+      <div class="loading" role="status">正在加载要闻...</div>
+    </section>
   </main>
 
-  <footer>
-    <p><span class="seal">更新</span> <span id="lastUpdate">-</span></p>
+  <!-- 语义化 Footer -->
+  <footer role="contentinfo">
+    <p>
+      <span class="seal">更新</span>
+      <span id="lastUpdate" aria-live="polite">-</span>
+    </p>
     <p>每 3 分钟自动刷新 · 支持离线阅读</p>
-    <p style="margin-top: 15px; font-size: 12px; opacity: 0.7;">❧ 天下大事 · 尽在其中 ❧</p>
+    <p style="margin-top: var(--space-4); font-size: 12px; opacity: 0.7;">❧ 天下大事 · 尽在其中 ❧</p>
   </footer>
 
   <script>
+    // ========================================
     // 新闻源配置
+    // ========================================
     const RSS_SOURCES = {
       sina: 'https://rss.sina.com.cn/news/marquee/int.xml',
       '163': 'https://news.163.com/special/0001386F/rss_world.xml',
@@ -492,7 +711,9 @@
 
     const API_URL = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
+    // ========================================
     // 分类关键词
+    // ========================================
     const CATEGORY_KEYWORDS = {
       tech: ['科技', 'AI', '互联网', '手机', '软件', '数据', '算法', '芯片', 'tech', 'AI', 'software'],
       finance: ['财经', '股票', '基金', '银行', '经济', '金融', '投资', 'finance', 'stock', 'money'],
@@ -505,30 +726,42 @@
     let currentCategory = 'all';
     let currentSource = 'all';
 
+    // ========================================
     // 初始化
+    // ========================================
     document.addEventListener('DOMContentLoaded', () => {
       loadNews();
       initCategoryTabs();
       loadSettings();
+      // 每 3 分钟自动刷新
       setInterval(loadNews, 180000);
     });
 
-    // 分类标签
+    // ========================================
+    // 分类标签初始化
+    // ========================================
     function initCategoryTabs() {
       document.querySelectorAll('.category-tab').forEach(tab => {
         tab.addEventListener('click', () => {
-          document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.category-tab').forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
           tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
           currentCategory = tab.dataset.category;
           renderNews();
         });
       });
     }
 
+    // ========================================
     // 加载新闻
+    // ========================================
     async function loadNews() {
       const container = document.getElementById('news');
-      container.innerHTML = '<div class="loading">正在加载要闻...</div>';
+      container.setAttribute('aria-busy', 'true');
+      container.innerHTML = '<div class="loading" role="status">正在加载要闻...</div>';
       
       try {
         const sources = currentSource === 'all' 
@@ -551,11 +784,20 @@
         updateLastUpdate();
         saveSettings();
       } catch (err) {
-        container.innerHTML = `<div class="error">加载失败：${err.message}<br><button onclick="loadNews()" style="margin-top:10px;padding:10px 20px;cursor:pointer;">重试</button></div>`;
+        container.innerHTML = `
+          <div class="error" role="alert">
+            加载失败：${err.message}
+            <button onclick="loadNews()" aria-label="重试">重试</button>
+          </div>
+        `;
+      } finally {
+        container.setAttribute('aria-busy', 'false');
       }
     }
 
-    // 渲染新闻
+    // ========================================
+    // 渲染新闻 - 性能优化
+    // ========================================
     function renderNews() {
       const container = document.getElementById('news');
       
@@ -574,34 +816,57 @@
       }
 
       if (filtered.length === 0) {
-        container.innerHTML = '<div class="loading">暂无要闻</div>';
+        container.innerHTML = '<div class="loading" role="status">暂无要闻</div>';
         return;
       }
 
-      container.innerHTML = filtered.map(item => {
+      // 使用 DocumentFragment 优化 DOM 操作
+      const fragment = document.createDocumentFragment();
+      
+      filtered.forEach(item => {
         const category = detectCategory(item);
         const timeAgo = getTimeAgo(new Date(item.pubDate));
         
-        return `
-          <div class="news-card" onclick="window.open('${item.link}', '_blank')">
-            <div class="corner corner-tl"></div>
-            <div class="corner corner-br"></div>
-            ${item.enclosure?.link ? `<img src="${item.enclosure.link}" alt="" onerror="this.style.display='none'">` : ''}
-            <div class="content">
-              <span class="category">${category}</span>
-              <h3 class="title">${item.title}</h3>
-              <p class="desc">${stripHtml(item.description || '暂无摘要')}</p>
-              <div class="meta">
-                <span class="source">📍 ${getSourceName(item.source)}</span>
-                <span class="time">🕐 ${timeAgo}</span>
-              </div>
+        const card = document.createElement('article');
+        card.className = 'news-card';
+        card.setAttribute('role', 'article');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', item.title);
+        card.onclick = () => window.open(item.link, '_blank');
+        
+        // 键盘支持
+        card.onkeydown = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            window.open(item.link, '_blank');
+          }
+        };
+        
+        card.innerHTML = `
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-br"></div>
+          ${item.enclosure?.link ? `<img src="${item.enclosure.link}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+          <div class="content">
+            <span class="category">${category}</span>
+            <h3 class="title">${escapeHtml(item.title)}</h3>
+            <p class="desc">${escapeHtml(stripHtml(item.description || '暂无摘要'))}</p>
+            <div class="meta">
+              <span class="source">📍 ${getSourceName(item.source)}</span>
+              <span class="time">🕐 ${timeAgo}</span>
             </div>
           </div>
         `;
-      }).join('');
+        
+        fragment.appendChild(card);
+      });
+      
+      container.innerHTML = '';
+      container.appendChild(fragment);
     }
 
-    // 检测分类
+    // ========================================
+    // 辅助函数
+    // ========================================
     function detectCategory(item) {
       const text = (item.title + ' ' + (item.description || '')).toLowerCase();
       for (const [cat, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
@@ -615,7 +880,6 @@
       return '综合';
     }
 
-    // 获取来源名称
     function getSourceName(source) {
       const names = {
         sina: '新浪',
@@ -627,14 +891,18 @@
       return names[source] || source;
     }
 
-    // 去除 HTML 标签
     function stripHtml(html) {
       const tmp = document.createElement('div');
       tmp.innerHTML = html;
       return tmp.textContent || tmp.innerText || '';
     }
 
-    // 时间格式化
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
     function getTimeAgo(date) {
       const now = new Date();
       const diff = Math.floor((now - date) / 1000);
@@ -645,24 +913,20 @@
       return `${Math.floor(diff / 86400)}天前`;
     }
 
-    // 更新最后更新时间
     function updateLastUpdate() {
       document.getElementById('lastUpdate').textContent = new Date().toLocaleString('zh-CN');
     }
 
-    // 切换来源
     function changeSource() {
       currentSource = document.getElementById('sourceSelect').value;
       loadNews();
     }
 
-    // 保存设置
     function saveSettings() {
       localStorage.setItem('lastSource', currentSource);
       localStorage.setItem('lastCategory', currentCategory);
     }
 
-    // 加载设置
     function loadSettings() {
       const lastSource = localStorage.getItem('lastSource');
       if (lastSource) {
@@ -674,7 +938,9 @@
       if (lastCategory) {
         currentCategory = lastCategory;
         document.querySelectorAll('.category-tab').forEach(tab => {
-          tab.classList.toggle('active', tab.dataset.category === lastCategory);
+          const isActive = tab.dataset.category === lastCategory;
+          tab.classList.toggle('active', isActive);
+          tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
         });
       }
     }
