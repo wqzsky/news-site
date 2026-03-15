@@ -36,32 +36,33 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      width: 50px;
-      height: 50px;
+      width: 56px;
+      height: 56px;
       background: white;
       border-radius: 50%;
-      box-shadow: 0 4px 16px rgba(212,165,116,0.3);
+      box-shadow: 0 4px 20px rgba(232,165,152,0.4);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 1000;
       transition: all 0.3s;
-      border: 2px solid var(--accent);
+      border: 3px solid var(--accent);
     }
     .music-player:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 24px rgba(212,165,116,0.4);
+      transform: scale(1.15);
+      box-shadow: 0 8px 28px rgba(232,165,152,0.5);
     }
     .music-player.playing {
       animation: rotate 3s linear infinite;
     }
+    .music-player-icon {
+      font-size: 28px;
+    }
     @keyframes rotate {
       to { transform: rotate(360deg); }
     }
-    .music-player-icon {
-      font-size: 24px;
-    }
+
 
     /* 主容器 */
     .container {
@@ -105,19 +106,20 @@
       background: var(--bg);
       padding: 30px 20px;
       text-align: center;
-      border-radius: 12px;
+      border-radius: 24px;
       text-decoration: none;
       color: var(--text);
       transition: all 0.3s;
       border: 1px solid rgba(232,165,152,0.2);
       cursor: pointer;
-      box-shadow: 0 2px 12px rgba(232,165,152,0.08);
+      box-shadow: 0 4px 16px rgba(232,165,152,0.1);
     }
     
     .nav-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(212,165,116,0.15);
+      transform: translateY(-6px);
+      box-shadow: 0 8px 32px rgba(232,165,152,0.2);
       border-color: var(--accent);
+      background: linear-gradient(135deg, #FFF9F5 0%, #FFF5F0 100%);
     }
     
     .nav-card-icon {
@@ -145,9 +147,9 @@
       padding: 50px 30px;
       margin: 40px 0;
       background: linear-gradient(135deg, #FFF9F5 0%, #FFF5F0 100%);
-      border-radius: 16px;
+      border-radius: 32px;
       border: 1px solid rgba(232,165,152,0.3);
-      box-shadow: 0 4px 20px rgba(232,165,152,0.15);
+      box-shadow: 0 6px 24px rgba(232,165,152,0.15);
     }
     
     .timer-label {
@@ -194,10 +196,16 @@
       background: var(--bg);
       padding: 24px;
       margin-bottom: 16px;
-      border-radius: 12px;
+      border-radius: 20px;
       border: 1px solid rgba(232,165,152,0.2);
       transition: all 0.3s;
       box-shadow: 0 2px 8px rgba(232,165,152,0.06);
+    }
+    
+    .list-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(232,165,152,0.15);
+      border-color: var(--accent);
     }
     
     .list-item:hover {
@@ -232,7 +240,7 @@
       width: 100%;
       padding: 14px;
       border: 1px solid rgba(232,165,152,0.3);
-      border-radius: 8px;
+      border-radius: 16px;
       font-family: inherit;
       font-size: 14px;
       background: var(--bg);
@@ -243,7 +251,7 @@
     .form-input:focus, .form-textarea:focus, .form-select:focus {
       outline: none;
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(232,165,152,0.1);
+      box-shadow: 0 0 0 3px rgba(232,165,152,0.15);
     }
     
     .form-input:focus, .form-textarea:focus, .form-select:focus {
@@ -262,7 +270,7 @@
       background: linear-gradient(135deg, var(--accent), var(--accent-dark));
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 20px;
       font-size: 14px;
       cursor: pointer;
       transition: all 0.3s;
@@ -301,21 +309,25 @@
     /* 返回按钮 */
     .back-btn {
       display: inline-block;
-      padding: 10px 20px;
+      padding: 12px 24px;
       margin-bottom: 20px;
       background: white;
       color: var(--text);
       text-decoration: none;
-      border-radius: 4px;
+      border-radius: 20px;
       font-size: 13px;
-      border: 1px solid rgba(212,165,116,0.2);
+      border: 1px solid rgba(232,165,152,0.3);
       cursor: pointer;
       transition: all 0.3s;
+      font-weight: 500;
     }
     
     .back-btn:hover {
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: white;
       border-color: var(--accent);
-      color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(232,165,152,0.3);
     }
 
     /* 响应式 */
@@ -620,7 +632,7 @@
     // 渲染照片
     function renderPhotos() {
       document.getElementById('photoGrid').innerHTML = CONFIG.photos.map(p => `
-        <div style="background:white;border-radius:4px;overflow:hidden;border:1px solid rgba(212,165,116,0.1);">
+        <div style="background:white;border-radius:20px;overflow:hidden;border:1px solid rgba(232,165,152,0.2);box-shadow:0 4px 16px rgba(232,165,152,0.1);">
           <img src="${p.img}" style="width:100%;display:block;aspect-ratio:1;object-fit:cover;">
           ${p.caption ? `<div style="padding:12px;font-size:13px;color:#5A5A5A;text-align:center;">${p.caption}</div>` : ''}
         </div>
