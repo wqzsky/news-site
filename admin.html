@@ -457,20 +457,26 @@
   <script>
     // ========== 数据管理 ==========
     const DB = {
-      moments: JSON.parse(localStorage.getItem('admin_moments') || '[]'),
-      leaves: JSON.parse(localStorage.getItem('admin_leaves') || '[]'),
-      photos: JSON.parse(localStorage.getItem('admin_photos') || '[]'),
-      lists: JSON.parse(localStorage.getItem('admin_lists') || '[]'),
-      settings: JSON.parse(localStorage.getItem('admin_settings') || '{"name1":"王庆召","name2":"饶怡萍","loveDate":"2023-05-13"}')
+      // 读取前台数据（兼容旧数据）
+      moments: JSON.parse(localStorage.getItem('admin_moments') || localStorage.getItem('moments') || '[]'),
+      leaves: JSON.parse(localStorage.getItem('admin_leaves') || localStorage.getItem('leaves') || '[]'),
+      photos: JSON.parse(localStorage.getItem('admin_photos') || localStorage.getItem('photos') || '[]'),
+      lists: JSON.parse(localStorage.getItem('admin_lists') || localStorage.getItem('lists') || '[]'),
+      settings: JSON.parse(localStorage.getItem('admin_settings') || localStorage.getItem('settings') || '{"name1":"王庆召","name2":"饶怡萍","loveDate":"2023-05-13"}')
     };
 
-    // 保存数据
+    // 保存数据（同时保存到前台和后台键名）
     function saveData() {
       localStorage.setItem('admin_moments', JSON.stringify(DB.moments));
+      localStorage.setItem('moments', JSON.stringify(DB.moments));
       localStorage.setItem('admin_leaves', JSON.stringify(DB.leaves));
+      localStorage.setItem('leaves', JSON.stringify(DB.leaves));
       localStorage.setItem('admin_photos', JSON.stringify(DB.photos));
+      localStorage.setItem('photos', JSON.stringify(DB.photos));
       localStorage.setItem('admin_lists', JSON.stringify(DB.lists));
+      localStorage.setItem('lists', JSON.stringify(DB.lists));
       localStorage.setItem('admin_settings', JSON.stringify(DB.settings));
+      localStorage.setItem('settings', JSON.stringify(DB.settings));
     }
 
     // ========== 页面切换 ==========
