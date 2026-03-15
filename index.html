@@ -20,42 +20,10 @@
     
     body {
       font-family: 'Noto Serif SC', serif;
-      /* Like_Girl 风格背景：上照片 + 下格子 */
-      background-color: #FFF8F0;
-      background-image: 
-        /* 格子图案 */
-        linear-gradient(rgba(232,165,152,0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(232,165,152,0.1) 1px, transparent 1px),
-        /* 顶部照片区域 */
-        linear-gradient(180deg, rgba(255,248,240,0.8) 0%, rgba(255,248,240,0.9) 350px, transparent 350px),
-        url('images/bg.jpg');
-      background-size: 
-        40px 40px,
-        40px 40px,
-        100% 350px,
-        cover;
-      background-position: 
-        0 350px,
-        0 350px,
-        0 0,
-        center top;
-      background-attachment: fixed;
+      background: linear-gradient(135deg, #FFF9F5 0%, #FFF5F0 100%);
       color: var(--text);
       line-height: 1.8;
       min-height: 100vh;
-    }
-    
-    /* 顶部照片遮罩 */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 350px;
-      background: linear-gradient(180deg, rgba(255,248,240,0.3) 0%, rgba(255,248,240,0.8) 100%);
-      z-index: -1;
-      pointer-events: none;
     }
 
     /* 飘落花瓣 */
