@@ -20,7 +20,30 @@
     
     body {
       font-family: 'Noto Serif SC', serif;
-      background: #FFF8F0;
+      /* 上半部分：你们的照片 */
+      background: 
+        /* 下半部分：格子图案 */
+        linear-gradient(180deg, transparent 50%, rgba(232,165,152,0.08) 50%),
+        linear-gradient(90deg, transparent 50%, rgba(232,165,152,0.08) 50%),
+        /* 上半部分：照片 */
+        linear-gradient(180deg, #FFF8F0 0%, #FFF8F0 400px),
+        url('images/bg.jpg');
+      background-size: 
+        30px 30px,
+        30px 30px,
+        100% 400px,
+        cover;
+      background-position: 
+        0 400px,
+        0 400px,
+        0 0,
+        center top;
+      background-repeat: 
+        repeat,
+        repeat,
+        no-repeat,
+        no-repeat;
+      background-attachment: fixed;
       color: var(--text);
       line-height: 1.8;
       min-height: 100vh;
