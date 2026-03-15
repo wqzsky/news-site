@@ -347,9 +347,37 @@
         <button onclick="showSection('timeline')">时光轴</button>
         <button onclick="showSection('photos')">照片墙</button>
         <button onclick="showSection('wishlist')">心愿</button>
+      <button onclick="openUploadPanel()" style="background:var(--primary);color:white;">📤 上传</button>
       </div>
     </div>
   </nav>
+
+  <!-- 上传面板 -->
+  <div id="uploadPanel" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:10001;padding:40px;overflow:auto;">
+    <div style="max-width:800px;margin:0 auto;background:white;border-radius:16px;padding:30px;position:relative;">
+      <button onclick="closeUploadPanel()" style="position:absolute;right:20px;top:20px;border:none;background:none;font-size:24px;cursor:pointer;">×</button>
+      <h2 style="margin-bottom:20px;">📤 上传图片管理</h2>
+      
+      <div style="margin-bottom:24px;">
+        <h3 style="margin-bottom:12px;font-size:16px;">方式一：GitHub 手动上传（推荐）</h3>
+        <ol style="padding-left:20px;color:#718096;font-size:14px;line-height:2;">
+          <li>访问 <a href="https://github.com/wqzsky/news-site" target="_blank" style="color:#FF6B9D;">GitHub 仓库</a></li>
+          <li>进入 <code>images/</code> 文件夹（没有就新建）</li>
+          <li>点击 "Upload files" 上传照片</li>
+          <li>复制图片路径，如 <code>images/food1.jpg</code></li>
+          <li>在代码配置区填写路径</li>
+        </ol>
+      </div>
+      
+      <div style="margin-bottom:24px;">
+        <h3 style="margin-bottom:12px;font-size:16px;">方式二：本地预览（临时）</h3>
+        <input type="file" id="localUpload" accept="image/*" multiple onchange="handleLocalUpload(event)" style="margin-bottom:12px;">
+        <div id="localPreview" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;"></div>
+      </div>
+      
+      <button onclick="closeUploadPanel()" style="width:100%;padding:12px;background:#FF6B9D;color:white;border:none;border-radius:8px;font-size:14px;cursor:pointer;">完成</button>
+    </div>
+  </div>
 
   <main>
     <!-- 首页 -->
@@ -651,6 +679,46 @@
 
     function closePopup() {
       document.getElementById('lovePopup').classList.remove('show');
+    }
+
+    // 上传功能
+    function openUploadPanel() {
+      document.getElementById('uploadPanel').style.display = 'block';
+      renderUploadedImages();
+    }
+
+    function closeUploadPanel() {
+      document.getElementById('uploadPanel').style.display = 'none';
+    }
+
+    function handleLocalUpload(event) {
+      const files = event.target.files;
+      const preview = document.getElementById('localPreview');
+      preview.innerHTML = '';
+      
+      for (let file of files) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const div = document.createElement('div');
+          div.style.position = 'relative';
+          div.innerHTML = `
+            <img src="${e.target.result}" style="width:100%;border-radius:8px;">
+            <div style="font-size:11px;padding:4px;color:#718096;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${file.name}</div>
+          `;
+          preview.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function renderUploadedImages() {
+      const container = document.getElementById('uploadedImages');
+      const images = CONFIG.foods.map(f=>f.img).concat(CONFIG.travels.map(t=>t.img));
+      container.innerHTML = images.map(img => `
+        <div style="position:relative;">
+          <img src="${img}" style="width:100%;border-radius:8px;aspect-ratio:1;object-fit:cover;">
+        </div>
+      `).join('');
     }
   </script>
 </body>
