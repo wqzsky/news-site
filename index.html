@@ -591,15 +591,24 @@
       document.getElementById('mainNav').style.display = 'none';
       document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
       document.getElementById(pageId).classList.add('active');
+      // 显示当前页面的返回按钮
+      const backBtn = document.getElementById(pageId).querySelector('.back-btn');
+      if (backBtn) backBtn.style.display = 'flex';
       window.scrollTo(0, 0);
     }
 
     // 返回首页
     function showHome() {
+      // 隐藏所有页面区块
       document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+      // 显示首页元素
       document.getElementById('header').style.display = 'block';
       document.getElementById('timer').style.display = 'block';
       document.getElementById('mainNav').style.display = 'grid';
+      // 隐藏所有返回按钮
+      document.querySelectorAll('.back-btn').forEach(btn => btn.style.display = 'none');
+      // 滚动到顶部
+      window.scrollTo(0, 0);
     }
 
     // 渲染点点滴滴
