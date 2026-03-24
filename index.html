@@ -519,24 +519,33 @@
   </div>
 
   <script>
-    // ========== 配置区 ==========
-    const CONFIG = {
+    // ========== 从 GitHub 读取数据的配置 ==========
+    const DATA_CONFIG = {
+      baseUrl: 'https://raw.githubusercontent.com/wqzsky/us/main/data',
       name1: '王庆召',
       name2: '饶怡萍',
       loveDate: '2023-05-13',
-      year: 2026,
-      
-      // 点点滴滴数据
-      moments: [
-        { date: '2023-05-13', title: '第一次相遇', content: '那一天，阳光正好，你刚好出现' },
-        { date: '2023-05-20', title: '第一次约会', content: '紧张又期待，一起吃火锅' },
-        { date: '2023-08-10', title: '第一次旅行', content: '迪士尼的烟花很美，你更美' }
-      ],
-      
-      // 留言数据
-      leaves: JSON.parse(localStorage.getItem('leaves') || '[]'),
-      
-      // 关于我们
+      year: 2026
+    };
+
+    // 从 GitHub 读取 JSON 数据
+    async function fetchFromGitHub(filename) {
+      try {
+        const response = await fetch(`${DATA_CONFIG.baseUrl}/${filename}?t=${Date.now()}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.json();
+      } catch (error) {
+        console.error(`Failed to fetch ${filename}:`, error);
+        return [];
+      }
+    }
+
+    // 全局数据
+    let CONFIG = {
+      moments: [],
+      leaves: [],
+      photos: [],
+      lists: [],
       about: `
         <div style="line-height:2;color:#5A5A5A;">
           <p>2023 年 5 月 13 日，我们相遇了。</p>
@@ -545,22 +554,25 @@
           <p style="margin-top:16px;">原来最浪漫的事，就是和你一起浪费时光。</p>
           <p style="margin-top:16px;">爱晨雾漫过青瓦，爱暮色染透篱笆，更爱与君并肩立，看遍这人间烟火里的朝暮与年华。</p>
         </div>
-      `,
-      
-      // 照片数据
-      photos: [
-        { img: 'images/couple1.jpg', caption: '我们的第一张合照' },
-        { img: 'https://picsum.photos/300/300?random=1', caption: '美好时光' },
-        { img: 'https://picsum.photos/300/300?random=2', caption: '一起吃饭' },
-        { img: 'https://picsum.photos/300/300?random=3', caption: '旅行回忆' }
-      ],
-      
-      // 恋爱列表
-      lists: JSON.parse(localStorage.getItem('loveLists') || '[]')
+      `
     };
 
-    // ========== 初始化 ==========
-    document.addEventListener('DOMContentLoaded', () => {
+    // ========== 初始化：从 GitHub 加载所有数据 ==========
+    async function initApp() {
+      // 并行加载所有数据
+      const [moments, leaves, photos, lists] = await Promise.all([
+        fetchFromGitHub('moments.json'),
+        fetchFromGitHub('leaves.json'),
+        fetchFromGitHub('photos.json'),
+        fetchFromGitHub('lists.json')
+      ]);
+      
+      CONFIG.moments = moments;
+      CONFIG.leaves = leaves;
+      CONFIG.photos = photos;
+      CONFIG.lists = lists;
+      
+      // 渲染页面
       initPetals();
       updateTimer();
       setInterval(updateTimer, 1000 * 60 * 60);
@@ -569,7 +581,10 @@
       renderAbout();
       renderPhotos();
       renderLists();
-    });
+    }
+
+    // ========== 页面加载 ==========
+    document.addEventListener('DOMContentLoaded', initApp);
 
     // 花瓣飘落
     function initPetals() {
