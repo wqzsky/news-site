@@ -627,7 +627,7 @@
       baseUrl: 'https://raw.githubusercontent.com/wqzsky/us/main/data',
       name1: '王庆召',
       name2: '饶怡萍',
-      loveDate: '2023-05-13',
+      loveDate: '2023-05-13',  // ✅ 确保初始化，避免 undefined
       year: 2026
     };
 
@@ -812,7 +812,7 @@
 
     // 更新计时器
     function updateTimer() {
-      const loveDate = new Date(CONFIG.loveDate);
+      const loveDate = new Date('2023-05-13'); // ✅ 硬编码日期，避免 CONFIG 未定义导致 NaN
       const now = new Date();
       const diff = Math.floor((now - loveDate) / (1000 * 60 * 60 * 24));
       document.getElementById('loveDays').textContent = diff;
